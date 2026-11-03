@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Transactions{% endblock %}
+{% block content %}<div class="d-flex justify-content-between align-items-center mb-3"><h2 class="fw-bold">Stock Transactions</h2><a class="btn btn-primary" href="{{ url_for('stock_update') }}">＋ New Transaction</a></div>
+<div class="panel table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>ID</th><th>Date</th><th>Product</th><th>Type</th><th>Quantity</th><th>Supplier</th></tr></thead><tbody>
+{% for t in transactions %}<tr><td>{{ t.transaction_id }}</td><td>{{ t.transaction_date }}</td><td>{{ t.product_name }}</td><td><span class="badge {{ 'bg-success' if t.transaction_type=='PURCHASE' else 'bg-primary' }}">{{ t.transaction_type }}</span></td><td>{{ t.quantity }}</td><td>{{ t.supplier_name or '-' }}</td></tr>
+{% else %}<tr><td colspan="6" class="text-center text-muted py-4">No transactions yet.</td></tr>{% endfor %}
+</tbody></table></div>{% endblock %}

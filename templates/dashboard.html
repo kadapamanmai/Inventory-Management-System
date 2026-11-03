@@ -1,0 +1,26 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+ <div><h2 class="fw-bold mb-1">Dashboard</h2><p class="text-muted mb-0">Overview of your inventory</p></div>
+ <a class="btn btn-primary" href="{{ url_for('stock_update') }}">＋ Update Stock</a>
+</div>
+<div class="row g-3 mb-4">
+ {% for label,value,icon in [('Total Products',total_products,'📦'),('Total Suppliers',total_suppliers,'🚚'),('Units in Stock',total_units,'📊')] %}
+ <div class="col-md-4"><div class="stat-card"><div class="text-muted">{{ label }}</div><div class="d-flex justify-content-between align-items-center"><h2 class="fw-bold mb-0">{{ value }}</h2><span class="fs-2">{{ icon }}</span></div></div></div>
+ {% endfor %}
+</div>
+<div class="row g-4">
+ <div class="col-lg-6"><div class="panel">
+  <h5 class="fw-bold">⚠ Low Stock Alerts</h5>
+  {% if low_stock %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Product</th><th>Available</th><th>Reorder level</th></tr></thead><tbody>
+  {% for p in low_stock %}<tr><td>{{ p.product_name }}</td><td><span class="badge bg-danger">{{ p.quantity }}</span></td><td>{{ p.reorder_level }}</td></tr>{% endfor %}
+  </tbody></table></div>{% else %}<p class="text-success mb-0">All products have sufficient stock.</p>{% endif %}
+ </div></div>
+ <div class="col-lg-6"><div class="panel">
+  <h5 class="fw-bold">Recent Transactions</h5>
+  {% if recent %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Product</th><th>Type</th><th>Qty</th></tr></thead><tbody>
+  {% for t in recent %}<tr><td>{{ t.product_name }}</td><td><span class="badge {{ 'bg-success' if t.transaction_type == 'PURCHASE' else 'bg-primary' }}">{{ t.transaction_type }}</span></td><td>{{ t.quantity }}</td></tr>{% endfor %}
+  </tbody></table></div>{% else %}<p class="text-muted mb-0">No transactions recorded yet.</p>{% endif %}
+ </div></div>
+</div>
+{% endblock %}

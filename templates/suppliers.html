@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Suppliers{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3"><h2 class="fw-bold">Suppliers</h2><a class="btn btn-primary" href="{{ url_for('add_supplier') }}">＋ Add Supplier</a></div>
+<div class="panel table-responsive"><table class="table table-hover align-middle mb-0"><thead><tr><th>ID</th><th>Name</th><th>Company</th><th>Phone</th><th>Email</th><th>Address</th><th>Actions</th></tr></thead><tbody>
+{% for s in suppliers %}<tr><td>{{ s.supplier_id }}</td><td class="fw-semibold">{{ s.name }}</td><td>{{ s.company or '-' }}</td><td>{{ s.phone or '-' }}</td><td>{{ s.email or '-' }}</td><td>{{ s.address or '-' }}</td><td class="text-nowrap"><a class="btn btn-sm btn-outline-primary" href="{{ url_for('edit_supplier',supplier_id=s.supplier_id) }}">Edit</a>
+<form class="d-inline" method="post" action="{{ url_for('delete_supplier',supplier_id=s.supplier_id) }}" onsubmit="return confirm('Delete supplier?')"><button class="btn btn-sm btn-outline-danger">Delete</button></form></td></tr>
+{% else %}<tr><td colspan="7" class="text-center text-muted py-4">No suppliers added.</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

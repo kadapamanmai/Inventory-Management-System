@@ -1,0 +1,9 @@
+body { background: #f5f7fb; color: #202938; }
+.navbar-brand { letter-spacing: .2px; }
+.stat-card, .panel { background: #fff; border: 1px solid #e8edf4; border-radius: 14px; padding: 22px; box-shadow: 0 5px 18px rgba(25,40,70,.04); }
+.stat-card { min-height: 120px; }
+.form-panel { max-width: 680px; }
+.table { font-size: .94rem; }
+.table thead th { color: #64748b; font-weight: 600; font-size: .82rem; text-transform: uppercase; }
+.btn { border-radius: 8px; }
+footer { font-size: .85rem; }

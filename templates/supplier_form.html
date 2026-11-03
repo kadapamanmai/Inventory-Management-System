@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}Supplier{% endblock %}
+{% block content %}<h2 class="fw-bold mb-3">{{ 'Edit Supplier' if supplier else 'Add Supplier' }}</h2>
+<div class="panel form-panel"><form method="post">
+{% for key,label,maxlen in [('name','Supplier Name *',100),('company','Company',150),('phone','Phone',15),('email','Email',100),('address','Address',200)] %}
+<div class="mb-3"><label class="form-label">{{ label }}</label><input class="form-control" name="{{ key }}" maxlength="{{ maxlen }}" {% if key=='name' %}required{% endif %} value="{{ supplier[key] if supplier else '' }}"></div>
+{% endfor %}
+<button class="btn btn-primary">Save Supplier</button> <a class="btn btn-light" href="{{ url_for('suppliers') }}">Cancel</a>
+</form></div>{% endblock %}

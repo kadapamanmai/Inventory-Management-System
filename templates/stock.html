@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}Update Stock{% endblock %}
+{% block content %}<h2 class="fw-bold mb-3">Purchase / Sale</h2>
+<div class="panel form-panel"><p class="text-muted">Purchases add stock. Sales subtract stock. A supplier is required for purchases.</p>
+<form method="post">
+<div class="mb-3"><label class="form-label">Product *</label><select class="form-select" name="product_id" required><option value="">Choose product</option>{% for p in products %}<option value="{{ p.product_id }}">{{ p.product_name }} (Available: {{ p.quantity }})</option>{% endfor %}</select></div>
+<div class="mb-3"><label class="form-label">Transaction Type *</label><select class="form-select" name="transaction_type" id="type" required onchange="toggleSupplier()"><option value="PURCHASE">Purchase (Stock In)</option><option value="SALE">Sale (Stock Out)</option></select></div>
+<div class="mb-3" id="supplier-box"><label class="form-label">Supplier *</label><select class="form-select" name="supplier_id"><option value="">Choose supplier</option>{% for s in suppliers %}<option value="{{ s.supplier_id }}">{{ s.name }} - {{ s.company }}</option>{% endfor %}</select></div>
+<div class="mb-3"><label class="form-label">Quantity *</label><input class="form-control" type="number" name="quantity" min="1" required></div>
+<button class="btn btn-primary">Save Transaction</button></form></div>
+<script>function toggleSupplier(){document.getElementById('supplier-box').style.display=document.getElementById('type').value==='PURCHASE'?'block':'none'}toggleSupplier();</script>
+{% endblock %}
